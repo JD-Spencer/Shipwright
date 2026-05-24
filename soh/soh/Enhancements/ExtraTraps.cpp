@@ -173,14 +173,12 @@ static void RollRandomTrap(uint64_t seed) {
             EntranceIndex teleportRoll = ShipUtils::RandomElement(teleportBag, &state);
             { // Use a bag to randomize teleport locations. This prevents repeat destination teleports.
                 for (int i = 0; i < teleportBag.size(); i++) {
-                    if (teleportBag[i] == teleportRoll)
-                    {
+                    if (teleportBag[i] == teleportRoll) {
                         teleportBag.erase(teleportBag.begin() + i);
                         break;
                     }
                 }
-                if (teleportBag.size() == 0)
-                {
+                if (teleportBag.size() == 0) {
                     for (int i = 0; i < teleportDestinations.size(); i++) {
                         if (teleportDestinations[i] != teleportRoll) {
                             teleportBag.push_back(teleportDestinations[i]);
@@ -225,7 +223,7 @@ static void RegisterExtraTraps() {
         gSaveContext.ship.pendingIceTrapCount--;
         gSaveContext.ship.stats.count[COUNT_ICE_TRAPS]++;
         GameInteractor_ExecuteOnItemReceiveHooks(ItemTable_RetrieveEntry(MOD_RANDOMIZER, RG_ICE_TRAP));
-        if (CVAR_EXTRA_TRAPS_VALUE) { 
+        if (CVAR_EXTRA_TRAPS_VALUE) {
             RollRandomTrap(gPlayState->sceneNum + player->getItemEntry.drawItemId);
         } else {
             GameInteractor::RawAction::FreezePlayer();
